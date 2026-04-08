@@ -1,94 +1,52 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 0,
-   "metadata": {
-    "application/vnd.databricks.v1+cell": {
-     "cellMetadata": {},
-     "inputWidgets": {},
-     "nuid": "a2839a02-a6c9-45de-8fca-cb54bbd5b952",
-     "showTitle": false,
-     "tableResultSettingsMap": {},
-     "title": ""
-    }
-   },
-   "outputs": [],
-   "source": [
-    "%sql\n",
-    "-- ================================\n",
-    "-- 1. CONFIGURATION\n",
-    "-- ================================\n",
-    "USE CATALOG abn_demo;\n",
-    "\n",
-    "-- ================================\n",
-    "-- 2. BRONZE LAYER\n",
-    "-- ================================\n",
-    "CREATE SCHEMA IF NOT EXISTS abn_demo.bronze_abn;\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.bronze_abn.episodes\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.bronze_abn.cast\n",
-    "USING DELTA\n",
-    "\n",
-    "-- ================================\n",
-    "-- 3. SILVER LAYER\n",
-    "-- ================================\n",
-    "CREATE SCHEMA IF NOT EXISTS abn_demo.silver_abn;\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.silver_abn.shows\n",
-    "USING DELTA\n",
-    
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.silver_abn.episodes\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.silver_abn.cast\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.silver_abn.fact_table\n",
-    "USING DELTA\n",
-    "\n",
-    "-- ================================\n",
-    "-- 4. GOLD LAYER\n",
-    "-- ================================\n",
-    "CREATE SCHEMA IF NOT EXISTS abn_demo.gold_abn;\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.gold_abn.episodes_per_season\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.gold_abn.avg_runtime\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.gold_abn.top_cast\n",
-    "USING DELTA\n",
-    "\n",
-    "CREATE TABLE IF NOT EXISTS abn_demo.gold_abn.common_genres\n",
-    "USING DELTA\n",
-   ]
-  }
- ],
- "metadata": {
-  "application/vnd.databricks.v1+notebook": {
-   "computePreferences": null,
-   "dashboards": [],
-   "environmentMetadata": {
-    "base_environment": "",
-    "environment_version": "5"
-   },
-   "inputWidgetPreferences": null,
-   "language": "python",
-   "notebookMetadata": {
-    "pythonIndentUnit": 4
-   },
-   "notebookName": "UC_Managed_Tables",
-   "widgets": {}
-  },
-  "language_info": {
-   "name": "python"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 0
-}
+%sql
+-- ================================
+-- 1. CONFIGURATION
+-- ================================
+CREATE CATALOG IF NOT EXISTS abn_demo;
+
+USE CATALOG abn_demo;
+
+-- ================================
+-- 2. BRONZE LAYER
+-- ================================
+CREATE SCHEMA IF NOT EXISTS bronze_abn;
+
+CREATE TABLE IF NOT EXISTS bronze_abn.episodes
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS bronze_abn.cast
+USING DELTA;
+
+-- ================================
+-- 3. SILVER LAYER
+-- ================================
+CREATE SCHEMA IF NOT EXISTS silver_abn;
+
+CREATE TABLE IF NOT EXISTS silver_abn.shows
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS silver_abn.episodes
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS silver_abn.cast
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS silver_abn.fact_table
+USING DELTA;
+
+-- ================================
+-- 4. GOLD LAYER
+-- ================================
+CREATE SCHEMA IF NOT EXISTS gold_abn;
+
+CREATE TABLE IF NOT EXISTS gold_abn.episodes_per_season
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS gold_abn.avg_runtime
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS gold_abn.top_cast
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS gold_abn.common_genres
+USING DELTA;
